@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trainers App</title>
+    <!-- Agrega el enlace a Bootstrap CSS -->
+    <style>
+        body {
+            background: linear-gradient(to right, #4b6cb7, #182848);
+            background-color: #f8f9fa;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #007bff;
+        }
+
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center; /* Centra el contenido */
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body>
+    <h1>Trainer Information</h1>
+    
+    <div class="container">
+        <!-- Nueva entrada para el nombre del Pokémon -->
+        <div class="form-group">
+            <label for="trainerName">Search trainer by Name:</label>
+            <input type="text" class="form-control" id="trainerName">
+        </div>
+        
+        <button id="searchByName" class="btn btn-primary">Search</button>
+
+        <div id="errorMessage" style="color: red;"></div>
+        <div id="trainerInfo"></div>
+    </div>
+    
+    <!-- Agrega el enlace a Bootstrap JS y Popper.js al final del cuerpo del documento -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
