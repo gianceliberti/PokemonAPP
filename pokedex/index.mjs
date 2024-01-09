@@ -1,8 +1,6 @@
+import express from 'express';
 import fetch from 'node-fetch';
-
-const express = require('express');
-const fetch = require('node-fetch').default;
-const cors = require('cors');
+import cors from 'cors';
 
 const app = express();
 const port = 3000;
@@ -17,9 +15,6 @@ app.get('/', (req, res) => {
 app.get('/wikidex/:name', async (req, res) => {
     try {
         const { name } = req.params;
-
-        // Importación dinámica de fetch
-        const fetch = (await import('node-fetch')).default;
 
         const response = await fetch(`https://www.wikidex.net/wiki/${name}`);
       
@@ -38,4 +33,3 @@ app.get('/wikidex/:name', async (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
-

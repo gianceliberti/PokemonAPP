@@ -7,35 +7,77 @@ async function getPokemonByName(name) {
         }
 
         const pokemon = await response.json();
-
-        // Obtener la URL de la imagen del Pokémon (manejar casos donde 'sprites' puede estar en diferentes lugares)
         const imageUrl = pokemon.sprites?.front_default || pokemon.sprites?.other?.['official-artwork']?.front_default;
 
-        // Limpiar el contenido HTML actual antes de mostrar nueva información
-        clearPokemonInfo();
+        // Obtener características base desde la Wikidex
+        const baseStats = await getPokemonDetailsFromWikidex(name);
 
-        displayPokemonInfo(pokemon, imageUrl);
+        clearPokemonInfo();
+        displayPokemonInfo(pokemon, imageUrl, baseStats);
     } catch (error) {
         console.error('Error al obtener información del Pokémon:', error.message);
         if (error.message.includes('no existe')) {
-            // Limpiar el contenido HTML actual antes de mostrar el mensaje de error
             clearPokemonInfo();
-
-            // Mostrar mensaje de error en el HTML
             displayErrorMessage(error.message);
         }
     }
 }
+// Nueva función para obtener características base desde la Wikidex
+async function getPokemonDetailsFromWikidex(name) {
+    try {
+        const response = await fetch(`https://www.wikidex.net/wiki/${name}`);
+        if (!response.ok) {
+            throw new Error(`No se pudo obtener información detallada para ${name}`);
+        }
+
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+
+        // Obtener características base y puntos totales
+        const baseStats = {
+            hp: extractStat(doc, 'PS'),
+            ataque: extractStat(doc, 'Ataque'),
+            defensa: extractStat(doc, 'Defensa'),
+            ataqueEspecial: extractStat(doc, 'Ataque Especial'),
+            defensaEspecial: extractStat(doc, 'Defensa Especial'),
+            velocidad: extractStat(doc, 'Velocidad'),
+            puntosTotales: extractStat(doc, 'Total'),
+        };
+
+        return baseStats;
+    } catch (error) {
+        console.error('Error al obtener detalles del Pokémon:', error.message);
+        throw error;
+    }
+}
+
+// Función auxiliar para extraer estadísticas del documento HTML
+function extractStat(doc, statName) {
+    const statElement = doc.querySelector(`.caractertabla tr:contains('${statName}') td:nth-child(2)`);
+    return statElement ? parseInt(statElement.textContent, 10) : null;
+}
+
+
 
 // Función para mostrar la información del Pokémon en el HTML
-function displayPokemonInfo(pokemon, imageUrl) {
-    // Limpiar mensajes de error previos
+function displayPokemonInfo(pokemon, imageUrl, baseStats) {
     clearErrorMessage();
 
     const pokemonInfo = document.getElementById('pokemonInfo');
     pokemonInfo.innerHTML = `
         <p>Name: ${pokemon.name}</p>
         <p>Types: ${pokemon.types.map(type => type.type.name).join(', ')}</p>
+        <p>Base Stats:</p>
+        <ul>
+            <li>HP: ${baseStats.hp}</li>
+            <li>Attack: ${baseStats.ataque}</li>
+            <li>Defense: ${baseStats.defensa}</li>
+            <li>Special Attack: ${baseStats.ataqueEspecial}</li>
+            <li>Special Defense: ${baseStats.defensaEspecial}</li>
+            <li>Speed: ${baseStats.velocidad}</li>
+            <li>Total: ${baseStats.puntosTotales}</li>
+        </ul>
         <img src="${imageUrl}" alt="${pokemon.name}" />
     `;
 }
