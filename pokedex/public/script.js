@@ -25,7 +25,7 @@ async function getPokemonByName(name) {
 // Nueva función para obtener características base desde la Wikidex
 async function getPokemonDetailsFromWikidex(name) {
     try {
-        const response = await fetch(`https://www.wikidex.net/wiki/${name}`);
+        const response = await fetch(`http://localhost:3000/wikidex-proxy/${name}`);
         if (!response.ok) {
             throw new Error(`No se pudo obtener información detallada para ${name}`);
         }
@@ -54,10 +54,18 @@ async function getPokemonDetailsFromWikidex(name) {
 
 // Función auxiliar para extraer estadísticas del documento HTML
 function extractStat(doc, statName) {
-    const statElement = doc.querySelector(`.caractertabla tr:contains('${statName}') td:nth-child(2)`);
-    return statElement ? parseInt(statElement.textContent, 10) : null;
-}
+    const statElements = doc.querySelectorAll('.caractertabla tr td:nth-child(1)');
 
+    for (const element of statElements) {
+        if (element.textContent.includes(statName)) {
+            // Buscar el elemento hermano (td:nth-child(2)) para obtener el valor de la estadística
+            const statValueElement = element.parentElement.querySelector('td:nth-child(2)');
+            return statValueElement ? parseInt(statValueElement.textContent, 10) : null;
+        }
+    }
+
+    return null;
+}
 
 
 // Función para mostrar la información del Pokémon en el HTML
