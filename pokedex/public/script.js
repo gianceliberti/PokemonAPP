@@ -10,18 +10,46 @@ function displayPokemonInfo(pokemon, imageUrl, baseStats) {
     // Filtra las imágenes válidas del Pokémon (sin devolver un código de estado 404)
     const validSprites = pokemon.sprites ? Object.values(pokemon.sprites).filter(sprite => sprite && sprite !== '404.png') : [];
     
-    // Muestra solo las primeras 5 imágenes válidas
-    const otherImages = validSprites.slice(0, 4).map(sprite => `<img src="${sprite}" alt="${pokemon.name}" class="extra-image" />`).join('');
+    // Muestra 4 imagenes mas, versiones macho y hembra con shiny, en este caso permanece comentada, solo mostraremos una imagen unica.
+    //const otherImages = validSprites.slice(0, 4).map(sprite => `<img src="${sprite}" alt="${pokemon.name}" class="extra-image" />`).join('');
 
+    // Formatea los tipos del Pokémon
+    const formattedTypes = pokemon.types.map(type => type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)).join(', ');
+
+    // Aplica colores a cada tipo
+    const typeColors = {
+        normal: '#A8A77A',
+        fire: '#EE8130',
+        water: '#6390F0',
+        electric: '#F7D02C',
+        grass: '#7AC74C',
+        ice: '#96D9D6',
+        fighting: '#C22E28',
+        poison: '#A33EA1',
+        ground: '#E2BF65',
+        flying: '#A98FF3',
+        psychic: '#F95587',
+        bug: '#A6B91A',
+        rock: '#B6A136',
+        ghost: '#735797',
+        dragon: '#6F35FC',
+        dark: '#705746',
+        steel: '#B7B7CE',
+        fairy: '#D685AD',
+    };
+    // Muestra los tipos del Pokémon con colores
+    const typesList = pokemon.types.map(type => `<span style="background-color: ${typeColors[type.type.name.toLowerCase()]}; color: white; padding: 5px; border-radius: 5px; margin: 0 5px;">${capitalizeFirstLetter(type.type.name)}</span>`).join('');
+
+   
     // Muestra las estadísticas base del Pokémon
-    const statsList = Object.entries(baseStats).map(([statName, statValue]) => `<li>${statName}: ${statValue}</li>`).join('');
+    const statsList = Object.entries(baseStats).map(([statName, statValue]) => `<li>${formatStatName(statName)}: ${statValue}</li>`).join('');
 
     // Construye la estructura HTML
     const pokemonDetailsHTML = `
-        <p id="pokemonName">Name: ${pokemon.name}</p>
-        <p id="pokemonTypes">Types: ${pokemon.types.map(type => type.type.name).join(', ')}</p>
+        <p id="pokemonName">Name: ${capitalizeFirstLetter(pokemon.name)}</p>
+        <p id="pokemonTypes">Types: ${typesList}</p>
         ${mainImage}
-        ${otherImages}
+       
         <p id="totalStats">Total Stats:</p>
         <ul>
             ${statsList}
@@ -31,6 +59,19 @@ function displayPokemonInfo(pokemon, imageUrl, baseStats) {
 
     // Aplica la estructura HTML al contenedor
     pokemonInfo.innerHTML = pokemonDetailsHTML;
+}
+
+// Función para capitalizar la primera letra de cada palabra
+function capitalizeFirstLetter(str) {
+    return str.replace(/\b\w/g, match => match.toUpperCase());
+}
+
+function formatStatName(statName) {
+    // Separa las palabras y las capitaliza
+    const words = statName.split(/(?=[A-Z])/);
+    const formattedName = words.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+
+    return formattedName;
 }
 
 // Función para calcular el total de los puntos base
