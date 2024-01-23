@@ -1,121 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokémon App</title>
-    <!-- Agrega el enlace a Bootstrap CSS -->
-    <style>
-
-                /* Estilos para el nombre del Pokémon */
-        #pokemonInfo p:nth-child(1) {
-            font-size: 24px;
-            font-weight: bold;
-            color: #e74c3c;
-        }
-
-        /* Estilos para los tipos del Pokémon */
-        #pokemonInfo p:nth-child(2) {
-            font-size: 18px;
-            color: #3498db; /* Azul */
-        }
-
-        /* Estilos para la imagen del Pokémon */
-        #pokemonInfo img {
-            max-width: 100%;
-            height: auto;
-            border: 4px solid #2ecc71; 
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-
-        /* Estilos para la tabla de estadísticas base*/
-        #pokemonInfo ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        #pokemonInfo ul li {
-            margin: 5px 0;
-        }
-
-        #pokemonInfo ul li:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        #pokemonInfo ul li:nth-child(odd) {
-            background-color: #ffffff;
-        }
-
-        #pokemonInfo ul li:last-child {
-            border: 2px solid #3498db;
-            border-radius: 5px;
-            padding: 5px;
-        }
-
-        body {
-            background: linear-gradient(to right, #4b6cb7, #182848);
-            background-color: #f8f9fa;
-        }
-
-        h1 {
-            text-align: center;
-            margin-top: 30px;
-            color: #b1af92;
-        }
-
-
-        .container {
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-top: 20px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center; 
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        #searchByName {
-            width: 100%;
-        }
-
-        #pokemonInfo {
-            margin-top: 20px;
-            border-top: 2px solid #007bff;
-            padding-top: 20px;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            margin-top: 10px;
-            border-radius: 5px;
-        }
-
-        #errorMessage {
-            margin-top: 20px;
-            text-align: center;
-        }
-        
-        #pokemonInfo p {
-            border: 1px solid #ffffff;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles\styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+    
 </head>
 <body>
-    <h1>Pokémon Information</h1>
-    
+<div>
+    <div>
+        <h1>Pokémon Information</h1>
+    </div>
     <div class="container">
         <!-- Nueva entrada para el nombre del Pokémon -->
         <div class="form-group">
@@ -130,14 +28,14 @@
     </div>
     
 
-    <!-- Importa el script.js -->
-    <script src="script.js"></script>
-    <!-- Importa el eventListeners.js después de script.js -->
-    <script src="eventListeners.js"></script>
+    <!-- Importa scripts -->
+    <script src="js/script.js"></script>
+    <script src="js/eventListeners.js"></script>
 
-    <!-- Agrega el enlace a Bootstrap JS y Popper.js al final del cuerpo del documento -->
+    <!-- Agrega el enlace a Bootstrap JS y Popper.js al final del cuerpo del documento 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+</div>
 </body>
 </html>

@@ -155,3 +155,15 @@ async function getPokemonByName(name) {
         }
     }
 }
+
+ // Función para actualizar la fecha en el footer
+ function updateCurrentDate() {
+    const currentDateSpan = document.getElementById('current-date');
+    const currentDate = new Date();
+    const formattedDate = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
+    currentDateSpan.textContent = formattedDate;
+}
+
+// Llama a la función para actualizar la fecha
+updateCurrentDate();
+
