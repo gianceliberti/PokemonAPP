@@ -22,4 +22,3 @@ document.getElementById('pokemonName').addEventListener('keyup', async (event) =
         }
     }
 });
-
